@@ -2,6 +2,7 @@ import pymel.core as pc
 
 
 import site
+from genericpath import exists
 site.addsitedir(r"R:\Pipe_Repo\Users\Qurban\utilities")
 import qtify_maya_window as qtfy
 from uiContainer import uic
@@ -20,6 +21,9 @@ class Remover(Form, Base):
         
     def remove(self):
         text = str(self.nameBox.text())
+        if not pc.namespace(exists=text):
+            pc.warning("Namespace doesn't exist")
+            return
         pc.namespace(mergeNamespaceWithRoot=True,
                      removeNamespace=text)
         
